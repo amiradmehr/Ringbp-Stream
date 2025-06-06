@@ -337,24 +337,24 @@ void MainWindow::processCompleteLines()
         }
 
         // --- Continue with normal processing ---
-        QString timestamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
-        QString message = QString("[%1] %2").arg(timestamp, line);
+            QString timestamp = QDateTime::currentDateTime().toString("hh:mm:ss.zzz");
+            QString message = QString("[%1] %2").arg(timestamp, line);
 
-        appendSerialData(message);
-        messageCount++;
-        ui->dataCountLabel->setText(QString("Messages: %1").arg(messageCount));
+            appendSerialData(message);
+            messageCount++;
+            ui->dataCountLabel->setText(QString("Messages: %1").arg(messageCount));
 
-        // Parse and plot pressure value
-        double pressure = parsePresssureValue(line);
+            // Parse and plot pressure value
+            double pressure = parsePresssureValue(line);
         int adcValue = parseADCValue(line);
 
         if (pressure != -1 || adcValue != -1)
         {
-            qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
-            if (startTime == 0)
-            {
+                qint64 currentTime = QDateTime::currentMSecsSinceEpoch();
+                if (startTime == 0)
+                {
                 startTime = currentTime;
-            }
+                }
 
             if (pressure != -1)
             {
@@ -788,10 +788,10 @@ void MainWindow::updatePressureTimeWindow()
 
     if (pressureSeries->count() > 0)
     {
-        QList<QPointF> points = pressureSeries->points();
-        if (!points.isEmpty())
-        {
-            double latestTime = points.last().x();
+            QList<QPointF> points = pressureSeries->points();
+            if (!points.isEmpty())
+            {
+                double latestTime = points.last().x();
             double windowStartTime = latestTime - pressureTimeWindowSeconds;
             double startTime = qMax(0.0, windowStartTime);
             double endTime = qMax(latestTime + 0.1, startTime + pressureTimeWindowSeconds);
