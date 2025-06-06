@@ -1,0 +1,24 @@
+# Build artifacts
+/build/
+
+# User-specific files
+/CMakeLists.txt.user
+
+# VSCode specific
+/.vscode/
+
+# CMake generated files
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+
+# Stable folders
+/stable1/
+/stable2/
+/stable3/

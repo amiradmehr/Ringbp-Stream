@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1500</width>
+    <height>800</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Arduino Pressure Monitor</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <item>
+     <widget class="QSplitter" name="mainSplitter">
+      <property name="orientation">
+       <enum>Qt::Orientation::Horizontal</enum>
+      </property>
+      <widget class="QGroupBox" name="controlPanel">
+       <property name="title">
+        <string>Controls</string>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <layout class="QHBoxLayout" name="portSelectionLayout">
+          <item>
+           <widget class="QComboBox" name="portComboBox"/>
+          </item>
+          <item>
+           <widget class="QPushButton" name="refreshPortsButton">
+            <property name="toolTip">
+             <string>Refresh the list of available COM ports</string>
+            </property>
+            <property name="text">
+             <string>🔄</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QPushButton" name="connectButton">
+          <property name="text">
+           <string>Connect</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="clearButton">
+          <property name="text">
+           <string>Clear Display &amp; Charts</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="dataCountLabel">
+          <property name="text">
+           <string>Messages: 0</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QGroupBox" name="motorControlsGroupBox">
+          <property name="title">
+           <string>Motor Controls</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QPushButton" name="forwardButton">
+               <property name="toolTip">
+                <string>Move forward for 0.5 seconds (sends ']')</string>
+               </property>
+               <property name="text">
+                <string>▶️ Forward</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="backwardButton">
+               <property name="toolTip">
+                <string>Move backward for 0.5 seconds (sends '[')</string>
+               </property>
+               <property name="text">
+                <string>◀️ Backward</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_3">
+             <item>
+              <widget class="QPushButton" name="cuffCycleButton">
+               <property name="toolTip">
+                <string>Inflate until stall, then deflate (sends 'j')</string>
+               </property>
+               <property name="text">
+                <string>🔄 Cuff Cycle</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="releaseButton">
+               <property name="toolTip">
+                <string>Deflate for 40 seconds (sends 'k')</string>
+               </property>
+               <property name="text">
+                <string>📉 Release</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QPushButton" name="stopButton">
+             <property name="toolTip">
+              <string>Immediately stop the motor (sends 'x')</string>
+             </property>
+             <property name="text">
+              <string>🛑 STOP</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QPushButton" name="calibrateButton">
+               <property name="toolTip">
+                <string>Calibrate ADC offset (sends 'c')</string>
+               </property>
+               <property name="text">
+                <string>⚙️ Calibrate</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="displayStallButton">
+               <property name="toolTip">
+                <string>Display stall detection values (sends 'd')</string>
+               </property>
+               <property name="text">
+                <string>ℹ️ Stall Info</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QSplitter" name="displaySplitter">
+       <property name="orientation">
+        <enum>Qt::Orientation::Vertical</enum>
+       </property>
+       <widget class="QGroupBox" name="chartsGroupBox">
+        <property name="title">
+         <string>Charts</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_4">
+         <item>
+          <layout class="QHBoxLayout" name="recordingPathLayout">
+           <item>
+            <widget class="QLabel" name="recordingPathLabel">
+             <property name="text">
+              <string>Recording Directory:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="recordingPathLineEdit">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>16777215</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>data-test</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="participantLabel">
+             <property name="text">
+              <string>Participant:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="participantLineEdit">
+             <property name="maximumSize">
+              <size>
+               <width>100</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <spacer name="horizontalSpacer_recPath">
+             <property name="orientation">
+              <enum>Qt::Orientation::Horizontal</enum>
+             </property>
+             <property name="sizeType">
+              <enum>QSizePolicy::Policy::Fixed</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>20</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
+           <item>
+            <widget class="QLabel" name="sbpLabel">
+             <property name="font">
+              <font>
+               <family>Calibri</family>
+               <pointsize>18</pointsize>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>SBP:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="sbpLineEdit">
+             <property name="maximumSize">
+              <size>
+               <width>80</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLabel" name="dbpLabel">
+             <property name="font">
+              <font>
+               <family>Calibri</family>
+               <pointsize>18</pointsize>
+               <italic>true</italic>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>DBP:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QLineEdit" name="dbpLineEdit">
+             <property name="maximumSize">
+              <size>
+               <width>80</width>
+               <height>16777215</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="editMetadataLayout">
+             <item>
+              <widget class="QLabel" name="fileSelectLabel">
+               <property name="text">
+                <string>File:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="fileSelectionComboBox">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+                 <horstretch>1</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="refreshFilesButton">
+               <property name="toolTip">
+                <string>Refresh the file list from the directory above</string>
+               </property>
+               <property name="text">
+                <string>🔄</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="saveMetadataButton">
+               <property name="toolTip">
+                <string>Save the Participant/SBP/DBP values for the selected file</string>
+               </property>
+               <property name="text">
+                <string>Save Metadata</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="chartsLayout">
+           <item>
+            <widget class="QGroupBox" name="pressureChartGroupBox">
+             <property name="title">
+              <string>Pressure Graph (Real-time)</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_Pressure">
+              <item>
+               <widget class="QChartView" name="pressureChart"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="pressureChartControlsLayout">
+                <item>
+                 <widget class="QLabel" name="timeWindowLabel">
+                  <property name="text">
+                   <string>Time Window:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="timeWindowComboBox">
+                  <item>
+                   <property name="text">
+                    <string>1 sec</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>5 sec</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>10 sec</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_Pressure">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="recordButton">
+                  <property name="text">
+                   <string>Start Recording</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="adcChartGroupBox">
+             <property name="title">
+              <string>ADC Graph (Real-time)</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_ADC">
+              <item>
+               <widget class="QChartView" name="adcChart"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="adcChartControlsLayout">
+                <item>
+                 <widget class="QLabel" name="adcTimeWindowLabel">
+                  <property name="text">
+                   <string>Time Window:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QComboBox" name="adcTimeWindowComboBox">
+                  <item>
+                   <property name="text">
+                    <string>1 sec</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>5 sec</string>
+                   </property>
+                  </item>
+                  <item>
+                   <property name="text">
+                    <string>10 sec</string>
+                   </property>
+                  </item>
+                 </widget>
+                </item>
+                <item>
+                 <spacer name="horizontalSpacer_ADC">
+                  <property name="orientation">
+                   <enum>Qt::Orientation::Horizontal</enum>
+                  </property>
+                  <property name="sizeHint" stdset="0">
+                   <size>
+                    <width>40</width>
+                    <height>20</height>
+                   </size>
+                  </property>
+                 </spacer>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="adcRecordButton">
+                  <property name="text">
+                   <string>Start Recording</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QGroupBox" name="serialDataGroupBox">
+        <property name="title">
+         <string>Serial Data</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <widget class="QLabel" name="currentPressureLabel">
+           <property name="text">
+            <string>Current Pressure: -- mmHg</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QTextEdit" name="serialDataDisplay">
+           <property name="readOnly">
+            <bool>true</bool>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1500</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts/QChartView</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
